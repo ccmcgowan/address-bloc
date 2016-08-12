@@ -44,68 +44,74 @@ RSpec.describe AddressBook do
 
       describe 'using sample csv file #1' do
         let (:csv_file) { "entries.csv" }
-        it "imports the correct number of entries" do
-          book_size = book.entries.size
-          expect(book_size).to eq 5
-        end
 
-        it "imports the 1st entry" do
-          entry_one = book.entries[0]
+          it "imports the correct number of entries" do
+            book_size = book.entries.size
+            expect(book_size).to eq 5
+          end
 
-          check_entry(entry_one, "Bill", "555-555-4854", "bill@blocmail.com")
-        end
+          it "imports the 1st entry" do
+            entry_one = book.entries[0]
 
-        it "imports the 2nd entry" do
-          entry_two = book.entries[1]
+            check_entry(entry_one, "Bill", "555-555-4854", "bill@blocmail.com")
+          end
 
-          check_entry(entry_two, "Bob", "555-555-5415", "bob@blocmail.com")
-         end
+          it "imports the 2nd entry" do
+            entry_two = book.entries[1]
 
-        it "imports the 3rd entry" do
-          entry_three = book.entries[2]
+            check_entry(entry_two, "Bob", "555-555-5415", "bob@blocmail.com")
+           end
 
-          check_entry(entry_three, "Joe", "555-555-3660", "joe@blocmail.com")
-        end
+          it "imports the 3rd entry" do
+            entry_three = book.entries[2]
 
-        it "imports the 4th entry" do
-          entry_four = book.entries[3]
+            check_entry(entry_three, "Joe", "555-555-3660", "joe@blocmail.com")
+          end
 
-          check_entry(entry_four, "Sally", "555-555-4646", "sally@blocmail.com")
-        end
+          it "imports the 4th entry" do
+            entry_four = book.entries[3]
 
-        it "imports the 5th entry" do
-          entry_five = book.entries[4]
+            check_entry(entry_four, "Sally", "555-555-4646", "sally@blocmail.com")
+          end
 
-          check_entry(entry_five, "Sussie", "555-555-2036", "sussie@blocmail.com")
-        end
+          it "imports the 5th entry" do
+            entry_five = book.entries[4]
+
+            check_entry(entry_five, "Sussie", "555-555-2036", "sussie@blocmail.com")
+          end
       end
 
       describe 'using sample csv file #2' do
         let (:csv_file) { "entries_2.csv" }
-        it "imports the correct number of entries" do
-          book_size = book.entries.size
-          expect(book_size).to eq 3
-        end
 
-        it "imports the 1st entry" do
-          entry_one = book.entries[0]
+          it "imports the correct number of entries" do
+            book_size = book.entries.size
+            expect(book_size).to eq 3
+          end
 
-          check_entry(entry_one, "Rick", "250-378-5661", "rick@gmail.com")
-        end
+          it "imports the entries" do
+            expect(book.entries).to include(Entry.new("Rick", "250-378-5661", "rick@gmail.com"), Entry.new("Patti", "250-525-1166", "patti@gmail.com"), Entry.new("Kanena", "250-378-1111", "kanena@gmail.com"))
+            end
+          end
 
-        it "imports the 2nd entry" do
-          entry_two = book.entries[1]
-
-          check_entry(entry_two, "Patti", "250-525-1166", "patti@gmail.com")
-         end
-
-        it "imports the 3rd entry" do
-          entry_three = book.entries[2]
-
-          check_entry(entry_three, "Kanena", "250-378-1111", "kanena@gmail.com")
-        end
-      end
-
+      #     it "imports the 1st entry" do
+      #       entry_one = book.entries[0]
+      #
+      #       check_entry(entry_one, "Rick", "250-378-5661", "rick@gmail.com")
+      #     end
+      #
+      #     it "imports the 2nd entry" do
+      #       entry_two = book.entries[1]
+      #
+      #       check_entry(entry_two, "Patti", "250-525-1166", "patti@gmail.com")
+      #     end
+      #
+      #     it "imports the 3rd entry" do
+      #       entry_three = book.entries[2]
+      #
+      #       check_entry(entry_three, "Kanena", "250-378-1111", "kanena@gmail.com")
+      #     end
+      # end
   end
 
 
