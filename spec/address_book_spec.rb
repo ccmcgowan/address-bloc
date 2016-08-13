@@ -91,27 +91,34 @@ RSpec.describe AddressBook do
 
           it "imports the entries" do
             expect(book.entries).to include(Entry.new("Rick", "250-378-5661", "rick@gmail.com"), Entry.new("Patti", "250-525-1166", "patti@gmail.com"), Entry.new("Kanena", "250-378-1111", "kanena@gmail.com"))
-            end
           end
+        # end
 
-      #     it "imports the 1st entry" do
-      #       entry_one = book.entries[0]
-      #
-      #       check_entry(entry_one, "Rick", "250-378-5661", "rick@gmail.com")
-      #     end
-      #
-      #     it "imports the 2nd entry" do
-      #       entry_two = book.entries[1]
-      #
-      #       check_entry(entry_two, "Patti", "250-525-1166", "patti@gmail.com")
-      #     end
-      #
-      #     it "imports the 3rd entry" do
-      #       entry_three = book.entries[2]
-      #
-      #       check_entry(entry_three, "Kanena", "250-378-1111", "kanena@gmail.com")
-      #     end
-      # end
+          #OR
+          # expect(entry_one).to eq(Entry.new("Rick", "250-378-5661", "rick@gmail.com"))
+          # expect(entry_two).to eq(Entry.new("Patti", "250-525-1166", "patti@gmail.com"))
+          # expect(entry_three).to eq(Entry.new("Kanena", "250-378-1111", "kanena@gmail.com"))
+
+          #OR
+
+          # it "imports the 1st entry" do
+          #   entry_one = book.entries[0]
+          #
+          #   check_entry(entry_one, "Rick", "250-378-5661", "rick@gmail.com")
+          # end
+          #
+          # it "imports the 2nd entry" do
+          #   entry_two = book.entries[1]
+          #
+          #   check_entry(entry_two, "Patti", "250-525-1166", "patti@gmail.com")
+          # end
+          #
+          # it "imports the 3rd entry" do
+          #   entry_three = book.entries[2]
+          #
+          #   check_entry(entry_three, "Kanena", "250-378-1111", "kanena@gmail.com")
+          # end
+      end
   end
 
 
