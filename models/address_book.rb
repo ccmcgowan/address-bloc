@@ -69,4 +69,8 @@ class AddressBook
     # end
     # entries.delete(target_entry)
   end
+
+  # def nuke_entry
+  #   entries.delete
+  # end
 end
