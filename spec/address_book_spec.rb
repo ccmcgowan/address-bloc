@@ -1,5 +1,21 @@
 require_relative '../models/address_book'
 
+
+shared_example 'search' do
+  let (:csv_file) {"entries.csv"}
+  before { book.import_from_csv(csv_file) }
+  it "searches AddressBook for a non-existent entry" do
+    entry = book.send(method, "Dan")
+    expect(entry).to be_nil
+  end
+
+  it "searches AddressBook for Bill" do
+    entry = book.send(method, "Bill")
+    expect(entry).to be_a Entry
+    check_entry(entry, "Bill", "555-555-4854", "bill@blocmail.com")
+  end
+end
+
 RSpec.describe AddressBook do
 
   let(:book) { AddressBook.new }
@@ -101,35 +117,35 @@ RSpec.describe AddressBook do
     before { book.import_from_csv(csv_file) }
       describe 'using sample csv file #1' do
         let (:csv_file) { "entries.csv" }
-          it "imports the correct number of entries" do
-            book_size = book.entries.size
-            expect(book_size).to eq 5
-          end
+        it "imports the correct number of entries" do
+          book_size = book.entries.size
+          expect(book_size).to eq 5
+        end
 
-          it "imports the 1st entry" do
-            entry_one = book.entries[0]
-            check_entry(entry_one, "Bill", "555-555-4854", "bill@blocmail.com")
-          end
+        it "imports the 1st entry" do
+          entry_one = book.entries[0]
+          check_entry(entry_one, "Bill", "555-555-4854", "bill@blocmail.com")
+        end
 
-          it "imports the 2nd entry" do
-            entry_two = book.entries[1]
-            check_entry(entry_two, "Bob", "555-555-5415", "bob@blocmail.com")
-          end
+        it "imports the 2nd entry" do
+          entry_two = book.entries[1]
+          check_entry(entry_two, "Bob", "555-555-5415", "bob@blocmail.com")
+        end
 
-          it "imports the 3rd entry" do
-            entry_three = book.entries[2]
-            check_entry(entry_three, "Joe", "555-555-3660", "joe@blocmail.com")
-          end
+        it "imports the 3rd entry" do
+          entry_three = book.entries[2]
+          check_entry(entry_three, "Joe", "555-555-3660", "joe@blocmail.com")
+        end
 
-          it "imports the 4th entry" do
-            entry_four = book.entries[3]
-            check_entry(entry_four, "Sally", "555-555-4646", "sally@blocmail.com")
-          end
+        it "imports the 4th entry" do
+          entry_four = book.entries[3]
+          check_entry(entry_four, "Sally", "555-555-4646", "sally@blocmail.com")
+        end
 
-          it "imports the 5th entry" do
-            entry_five = book.entries[4]
-            check_entry(entry_five, "Sussie", "555-555-2036", "sussie@blocmail.com")
-          end
+        it "imports the 5th entry" do
+          entry_five = book.entries[4]
+          check_entry(entry_five, "Sussie", "555-555-2036", "sussie@blocmail.com")
+        end
       end
 
       describe 'using sample csv file #2' do
@@ -171,23 +187,24 @@ RSpec.describe AddressBook do
     end
 
   describe '#remove_entry' do
+    before { book.add_entry('Ada Lovelace', '010.012.1815', 'Augustina.king@lovelace.com') }
+    let(:add_other_entry) { book.add_entry('Ada Lovelace', '010.012.1816', 'Augustina.king@lovelace.com')add_other_entry }
+    let(:run_remove_entry) { book.remove_entry('Ada Lovelace', '010.012.1815', 'Augustina.king@lovelace.com') }
+
     it 'removes an entry' do
-      book.add_entry('Ada Lovelace', '010.012.1815', 'Augustina.king@lovelace.com')
-      book.remove_entry('Ada Lovelace', '010.012.1815', 'Augustina.king@lovelace.com')
+      run_remove_entry
       expect(book.entries.size).to eq(0)
     end
 
     it 'removes only one entry' do
-      book.add_entry('Ada Lovelace', '010.012.1815', 'Augustina.king@lovelace.com')
-      book.add_entry('Ada Lovelace', '010.012.1816', 'Augustina.king@lovelace.com')
-      book.remove_entry('Ada Lovelace', '010.012.1815', 'Augustina.king@lovelace.com')
+      add_other_entry
+      run_remove_entry
       expect(book.entries.size).to eq(1)
     end
 
     it 'removes the right entry' do
-      book.add_entry('Ada Lovelace', '010.012.1816', 'Augustina.king@lovelace.com')
-      book.add_entry('Ada Lovelace', '010.012.1815', 'Augustina.king@lovelace.com')
-      book.remove_entry('Ada Lovelace', '010.012.1815', 'Augustina.king@lovelace.com')
+      add_other_entry
+      run_remove_entry
       expect(book.entries.first.phone_number).to eq('010.012.1816')
     end
   end
